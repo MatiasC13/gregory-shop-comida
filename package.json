@@ -1,0 +1,38 @@
+{
+  "homepage": "https://Fernandoleonett.github.io/simpleshop",
+  "name": "tienda",
+  "version": "0.1.0",
+  "private": true,
+  "sideEffects":["./pages/index.tsx", "*.css"],
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "analyze": "cross-env ANALYZE=true next build"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "^2.0.4",
+    "@chakra-ui/react": "^2.0.0-next.3",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@next/bundle-analyzer": "^12.3.1",
+    "axios": "^0.21.1",
+    "framer-motion": "^4.1.17",
+    "next": "^12.2.5",
+    "next-pwa": "^5.5.5",
+    "nodemailer": "^6.7.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
+    "swiper": "^8.3.1"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.5",
+    "@types/react": "^17.0.47",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.1.0",
+    "eslint-plugin-react": "^7.23.1",
+    "typescript": "^4.8.4"
+  }
+}

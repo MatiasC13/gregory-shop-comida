@@ -1,0 +1,32 @@
+.celular::-webkit-scrollbar {
+  width: 12px;
+}
+
+.celular::-webkit-scrollbar-thumb {
+  /* CELULAR */
+  background-color: #4764e0;
+
+  border-radius: 20px;
+}
+.comida::-webkit-scrollbar {
+  width: 12px;
+}
+
+.comida::-webkit-scrollbar-thumb {
+  /* COMIDA */
+  background-color: #f69d55;
+
+  border-radius: 20px;
+}
+
+.ropa::-webkit-scrollbar {
+  width: 12px;
+}
+
+.ropa::-webkit-scrollbar-thumb {
+  /* ROPA */
+
+  background-color: #7c7c7c;
+
+  border-radius: 20px;
+}
