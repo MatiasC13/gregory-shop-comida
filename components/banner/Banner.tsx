@@ -16,6 +16,7 @@ const Banner = () => {
         objectFit="cover"
         maxHeight={"sm"}
         width={"100%"}
+        h={"auto"}
       />
       {/* <video
         controls

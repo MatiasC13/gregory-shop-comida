@@ -41,7 +41,7 @@ const LeftHeaderComponent = () => {
         onClick={logoFunction}
         _focusVisible={{ boxShadow: "none" }}
       >
-        <Image src={showLogoType} alt="logo" />
+        <Image src={showLogoType} alt="logo" w={"auto"} h={"auto"} />
       </IconButton>
       {stateProducts &&
         enabledSelectorCategory(stateProducts.products) &&
