@@ -1,7 +1,5 @@
-
 import Product from "interfaces/Product";
 import { urlBase } from "utils/helper";
-
 import {ownerEmail} from "utils/ownerData"
 
 const getProducts = async (): Promise<Product[]> => {

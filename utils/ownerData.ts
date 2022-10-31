@@ -27,7 +27,7 @@ export const emailNotifications = "gregory.notificaciones@gmail.com"
 export const msgOWnerContact = "Hola tengo una consulta sobre tu tienda";
 export const instagramAccount = "";
 export const facebookAccount = "";
-export const telefono = "24180116s";
+export const telefono = "24180116";
 export const msgPrincipal = (status: string): string =>
   status !== "approved"
     ? "Tu compra esta casi lista, cualquier duda estamos a las ordenes 😊"

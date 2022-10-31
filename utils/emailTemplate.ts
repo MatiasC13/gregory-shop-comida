@@ -8,7 +8,7 @@ const rowItem = (cart: MercadoPagoItems[]) =>
   <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${
     item.quantity
   }x${item.title}</td>
-  <td>${item.unit_price * item.quantity}</td>
+  <td>$ ${item.unit_price * item.quantity}</td>
   </tr>`
     )
     .join("")
@@ -150,7 +150,7 @@ table.body .article {
                               ${rowItem(cart)}
                             <tr>
                               <td style="font-size: 16px; font-weight: bold;">Total: </td>
-                              <td style="font-size: 16px; font-weight: bold;">${total}</td>
+                              <td style="font-size: 16px; font-weight: bold;">$ ${total}</td>
                              </tr>
                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">${msgMain}</p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%;" width="100%">

@@ -48,9 +48,6 @@ export const ignoreAccentAndCase = (pText) => {
     sinAcento += repalceAccents(a);
   }
   return helperDeleteWhiteSpaceAndComa(sinAcento).toLocaleLowerCase();
-  // const arr = [...pValue].map((ch) => repalceAccents(ch)).join().replaceAll(" ", "").replaceAll(",", "").toLocaleLowerCase();
-
-  // return arr;
 };
 
 const helperDeleteWhiteSpaceAndComa = (pText: string) => {
@@ -58,30 +55,12 @@ const helperDeleteWhiteSpaceAndComa = (pText: string) => {
 
   for (let i = 0; i < pText.length; i++) {
     const a = pText[i];
-
     if (a !== " " && a !== ",") {
       texto += a;
     }
   }
-
   return texto;
 };
-
-// const superReplaceAny = (pText: string, oldChart: string, newChart: string) => {
-//   let texto = "";
-
-//   for (let i = 0; i < pText.length; i++) {
-//     const a = pText[i];
-
-//     if (a == oldChart) {
-//       texto += newChart;
-//     } else {
-//       texto += a;
-//     }
-//   }
-
-//   return texto;
-// };
 
 const repalceAccents = (value) => {
   switch (value) {
@@ -139,33 +118,8 @@ export const enabledSelectorCategory = (product: Product[]) => {
       }
     }
   });
-  console.log("mostrar", enabled);
-  console.log("products", product);
   return enabled;
 };
 
 export const urlBase = "https://us-central1-admin-gregory-shop.cloudfunctions.net/app/api/products/";
 
-// export function getUrl({
-//   fileName,
-//   bucketName,
-//   id,
-//   email,
-//   productTitle,
-//   dime = "600x600",
-// }:ImageFireBase ) {
-
-//   if (fileName.indexOf(" ") !== -1) {
-//     fileName = superReplaceAny(fileName, " ", "%20");
-//   }
-
-//   let url = `https://firebasestorage.googleapis.com/v0/b/${bucketName}.appspot.com/o/${email}%2F${productTitle}%2F${fileName}${id}_${dime}?alt=media`;
-
-//   if (url.indexOf(" ") !== -1) {
-//     url = superReplaceAny(url, " ", "%20");
-//   }
-//   if (url.indexOf("@") !== -1) {
-//     url = superReplaceAny(url, " ", "%40");
-//   }
-//   return url;
-// }

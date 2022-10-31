@@ -16,7 +16,6 @@ import { useShoping } from "context/context";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 import { getInitPoint } from "product/mercadopago";
-
 import { validateEmail } from "utils/helper";
 
 const RegisterForm = () => {
@@ -47,24 +46,26 @@ const RegisterForm = () => {
       getInitPoint(cart, user, "api/api_mp")
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
+          console.log(data);
           router.push(data.init_point);
           status = "success";
         })
         .catch(() => {
           title = "Ocurrió un error inesperado.";
           status = "error";
+          console.log("Hubo un error")
+        })
+        .finally(() =>{
+          toast({
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            status,
+            title,
+            isClosable: true,
+            position: "top",
+          });
         });
     }
-
-    toast({
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
-      status,
-      title,
-      isClosable: true,
-      position: "top",
-    });
   };
   //check
   // useEffect(() => {

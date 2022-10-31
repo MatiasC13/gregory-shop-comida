@@ -16,16 +16,24 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-async function createPayment(url: string, body: {
-    payer: { name: string; surname: string; email: string; }; items: MercadoPagoItems[]; back_urls: {
+async function createPayment(
+  url: string,
+  body: {
+    payer: { name: string; surname: string; email: string };
+    items: MercadoPagoItems[];
+    back_urls: {
       // failure: `/Pending`,
       failure: string;
       // pending: `/Pending`,
       pending: string;
       // success: `/Success`,
-      success: string; auto_return: string;
-    }; external_reference: User; notification_url: string;
-  }) {
+      success: string;
+      auto_return: string;
+    };
+    external_reference: User;
+    notification_url?: string;
+  }
+) {
   const payment = await axios.post(url, body, {
     headers: {
       "Content-Type": "application/json",
@@ -35,7 +43,7 @@ async function createPayment(url: string, body: {
 
   return payment.data;
 }
-const setBodyRequestPreferences = (data: { cart: CartItem[]; user: User; }) => {
+const setBodyRequestPreferences = (data: { cart: CartItem[]; user: User }) => {
   const { cart, user } = data;
   const { name, email, surname } = user;
 
@@ -69,7 +77,6 @@ const setBodyRequestPreferences = (data: { cart: CartItem[]; user: User; }) => {
       // },
     },
     items,
-
     back_urls: {
       // failure: `/Pending`,
       failure: `${process.env.LOCAL_URL}Pending`,
@@ -81,8 +88,7 @@ const setBodyRequestPreferences = (data: { cart: CartItem[]; user: User; }) => {
       auto_return: "all",
     },
     external_reference: user,
-
     notification_url: `${process.env.LOCAL_URL}api/notifications`,
   };
-  return body
+  return body;
 };
