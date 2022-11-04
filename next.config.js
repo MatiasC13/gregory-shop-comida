@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
-/** @type {import('next').NextConfig} */
+/* @type {import('next').NextConfig}  */
 
 // const withPWA = require("next-pwa");
 // const runtimeCaching = require("next-pwa/cache");
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
-module.exports = withBundleAnalyzer({
+// const withBundleAnalyzer = require("@next/bundle-analyzer")({
+//   enabled: process.env.ANALYZE === "true",
+// });
+module.exports = {
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.
@@ -33,4 +33,4 @@ module.exports = withBundleAnalyzer({
 
     BUSINESS_NAME: "Viandas del Sur"
   },
-});
+};
