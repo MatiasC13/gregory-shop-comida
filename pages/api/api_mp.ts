@@ -6,8 +6,10 @@ import User from "interfaces/User";
 import MercadoPagoItems from "interfaces/MercadoPagoItems";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
+  console.log("entro a la api");
   const body = setBodyRequestPreferences(req.body);
-
+console.log("body:", body);
+console.log("local_url:", process.env.LOCAL_URL);
   try {
     const payment = await createPayment(urlPreferences, body);
     res.status(200).json(payment);

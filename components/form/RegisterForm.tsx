@@ -43,6 +43,7 @@ const RegisterForm = () => {
       title = "Email no válido";
       status = "warning";
     } else {
+      console.log("enviado:", cart, user);
       getInitPoint(cart, user, "api/api_mp")
         .then((response) => response.json())
         .then((data) => {
