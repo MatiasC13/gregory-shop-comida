@@ -6,7 +6,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   console.log("body:", body);
   console.log("local_url:", process.env.LOCAL_URL);
   try {
-   res.status(200).json(body);
+   res
+     .status(200)
+     .json({
+       body,
+       url: process.env.LOCAL_URL,
+       gmailpass: process.env.GMAIL_PASS,
+       gmailuser: process.env.GMAIL_USER,
+     });
   } catch (error) {
     console.log("error api: ", error);
     res.status(500).json({ error: error });
