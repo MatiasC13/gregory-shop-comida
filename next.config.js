@@ -28,9 +28,9 @@ module.exports = {
   env: {
     GMAIL_USER: "gregory.notificaciones@gmail.com",
 
-    LOCAL_URL: "http://localhost:3000/",
-    // LOCAL_URL: "https://b717-2800-a4-77a-1f00-c97d-2069-617d-a20c.sa.ngrok.io/",
+    // LOCAL_URL: "http://localhost:3000/",
+    LOCAL_URL: "https://master.d3ue6qn3gssqvm.amplifyapp.com/",
 
-    BUSINESS_NAME: "Viandas del Sur"
+    BUSINESS_NAME: "Viandas del Sur",
   },
 };
