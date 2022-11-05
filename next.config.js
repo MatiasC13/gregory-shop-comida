@@ -26,7 +26,11 @@ module.exports = {
   },
 
   env: {
-    GMAIL_USER: "gregory.notificaciones@gmail.com",
+    ACCESS_TOKEN: process.env.ACCESS_TOKEN,
+    
+    GMAIL_USER: process.env.GMAIL_USER,
+
+    GMAIL_PASS: process.env.GMAIL_PASS,
 
     // LOCAL_URL: "http://localhost:3000/",
     LOCAL_URL: process.env.LOCAL_URL,
