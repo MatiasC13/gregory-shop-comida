@@ -13,6 +13,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
        url: process.env.LOCAL_URL,
        gmailpass: process.env.GMAIL_PASS,
        gmailuser: process.env.GMAIL_USER,
+       accesstoken: process.env.ACCESS_TOKEN,
      });
   } catch (error) {
     console.log("error api: ", error);
