@@ -12,6 +12,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const payment = await createPayment(urlPreferences, body);
     res.status(200).json(payment);
   } catch (error) {
+    console.log("error api: ", error);
     res.status(500).json({ error: error });
   }
 }
