@@ -50,10 +50,10 @@ const RegisterForm = () => {
           router.push(data.init_point);
           status = "success";
         })
-        .catch(() => {
+        .catch((error) => {
           title = "Ocurrió un error inesperado.";
           status = "error";
-          console.log("Hubo un error")
+          console.log("Hubo un error: ", error)
         })
         .finally(() =>{
           toast({
