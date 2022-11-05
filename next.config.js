@@ -29,7 +29,7 @@ module.exports = {
     GMAIL_USER: "gregory.notificaciones@gmail.com",
 
     // LOCAL_URL: "http://localhost:3000/",
-    LOCAL_URL: "https://master.d3ue6qn3gssqvm.amplifyapp.com/",
+    LOCAL_URL: process.env.LOCAL_URL,
 
     BUSINESS_NAME: "Viandas del Sur",
   },
