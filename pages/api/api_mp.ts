@@ -88,7 +88,7 @@ const setBodyRequestPreferences = (data: { cart: CartItem[]; user: User }) => {
       auto_return: "all",
     },
     external_reference: user,
-    notification_url: `${process.env.LOCAL_URL}api/notifications`,
+    // notification_url: `${process.env.LOCAL_URL}api/notifications`,
   };
   return body;
 };

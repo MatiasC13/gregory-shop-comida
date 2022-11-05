@@ -22,14 +22,14 @@ module.exports = {
   //   runtimeCaching,
   // },
   images: {
-    domains: ["firebasestorage.googleapis.com", "https://res.cloudinary.com"],
+    domains: ["firebasestorage.googleapis.com"],
   },
 
   env: {
     GMAIL_USER: "gregory.notificaciones@gmail.com",
 
-    // LOCAL_URL: "http://localhost:3000/",
-    LOCAL_URL: "https://b717-2800-a4-77a-1f00-c97d-2069-617d-a20c.sa.ngrok.io/",
+    LOCAL_URL: "http://localhost:3000/",
+    // LOCAL_URL: "https://b717-2800-a4-77a-1f00-c97d-2069-617d-a20c.sa.ngrok.io/",
 
     BUSINESS_NAME: "Viandas del Sur"
   },
