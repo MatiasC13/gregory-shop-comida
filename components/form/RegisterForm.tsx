@@ -14,12 +14,13 @@ import {
 } from "@chakra-ui/react";
 import { useShoping } from "context/context";
 import { useRouter } from "next/router";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { getInitPoint } from "product/mercadopago";
 import { validateEmail } from "utils/helper";
 
 const RegisterForm = () => {
   const { isOpenForm, onCloseForm, cart, setUser, user } = useShoping();
+  const [disabled, setDisabled]= useState(false);
   const router = useRouter();
   const toast = useToast();
 
@@ -44,6 +45,7 @@ const RegisterForm = () => {
       status = "warning";
     } else {
       console.log("enviado:", cart, user);
+      setDisabled(true);
       getInitPoint(cart, user, "api/api_mp")
         .then((response) => response.json())
         .then((data) => {
@@ -124,7 +126,7 @@ const RegisterForm = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button onClick={btnHanlderPay} colorScheme="blue" mr={3}>
+            <Button onClick={btnHanlderPay} disabled={disabled} colorScheme="blue" mr={3}>
               Ir a MercadoPago
             </Button>
             <Button onClick={onCloseForm}>Cancelar</Button>
