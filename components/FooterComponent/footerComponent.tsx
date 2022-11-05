@@ -87,7 +87,7 @@ const Footer = () => {
         fontSize={"0.7rem"}
       >
         made with ❤ by{" "}
-        <a target="blank" href="https://ladingpage-cyan.vercel.app/">
+        <a target="blank" href="https://tiendasgregory.com/">
           Gregory
         </a>
       </Text>

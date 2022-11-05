@@ -15,7 +15,7 @@ interface props {
 const SwiperImage = ({ title, image }: props) => {
   return (
     <Swiper
-      loop={true}
+      loop={image.length > 1 ? true : false}
       freeMode={true}
       className="mySwiper"
       modules={image.length > 1 ? [Autoplay] : []}
