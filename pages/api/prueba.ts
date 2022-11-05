@@ -6,10 +6,12 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   console.log("body:", body);
   console.log("local_url:", process.env.LOCAL_URL);
   try {
+    const host = req.url;
    res
      .status(200)
      .json({
        body,
+       host: host,
        url: process.env.LOCAL_URL,
        gmailpass: process.env.GMAIL_PASS,
        gmailuser: process.env.GMAIL_USER,
