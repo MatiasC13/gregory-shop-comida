@@ -10,6 +10,35 @@ import nodemailer from "nodemailer";
 import emailTempate from "utils/emailTemplate";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
+  try {
+    sendMail(res, req);
+  } catch (e) {
+    sendMailError(res, e);
+  }
+}
+
+async function obtenerDatos(id: any) {
+  const url = `https://api.mercadopago.com/v1/payments/${id}?access_token=${process.env.ACCESS_TOKEN}`;
+  // const url = `https://api.mercadopago.com/v1/payments/${id}?access_token=TEST-5700026799056399-072520-2151ddcd598f81c5c266e166878b6e68-1165635666`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  const {
+    transaction_amount,
+    external_reference: user,
+    additional_info,
+    status,
+  } = data;
+
+  const { items } = additional_info;
+
+  return [JSON.parse(user), items, transaction_amount, status];
+}
+
+async function sendMail(req, res) {
   if (req.body.data?.id) {
     const order = req.body.data.id;
 
@@ -21,14 +50,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const mailData = {
       from: {
         name: `${process.env.BUSINESS_NAME}`,
-        // address: ownerEmail,
-        address: "matiascabralmendez@gmail.com",
+        address: ownerEmail,
+        // address: "matiascabralmendez@gmail.com",
       },
       replyTo: ownerEmail,
-      // to: email,
-      to: "fernandoleonett@gmail.com",
-      // bcc: emailNotifications,
-      bcc: "matiascabralmendez@gmail.com",
+      to: email,
+      // to: "fernandoleonett@gmail.com",
+      bcc: emailNotifications,
+      // bcc: "matiascabralmendez@gmail.com",
       subject: `Número de compra: ${order} `,
 
       html: emailTempate(
@@ -42,17 +71,17 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         process.env.LOCAL_URL
       ),
     };
-    
+
     const transporter = nodemailer.createTransport({
       service: "gmail",
       port: 465,
       host: "smtp.gmail.com",
       secure: true,
       auth: {
-        // user: process.env.GMAIL_USER,
-        user:"gregory.notificaciones@gmail.com",
-        pass:"urgqvtkzovsiqivj",
-        // pass: process.env.GMAIL_PASS,
+        user: process.env.GMAIL_USER,
+        // user:"gregory.notificaciones@gmail.com",
+        // pass:"urgqvtkzovsiqivj",
+        pass: process.env.GMAIL_PASS,
       },
     });
 
@@ -92,23 +121,63 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-async function obtenerDatos(id: any) {
-  // const url = `https://api.mercadopago.com/v1/payments/${id}?access_token=${process.env.ACCESS_TOKEN}`;
-  const url = `https://api.mercadopago.com/v1/payments/${id}?access_token=TEST-5700026799056399-072520-2151ddcd598f81c5c266e166878b6e68-1165635666`;
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
+async function sendMailError(res, e) {
+  const mailData = {
+    from: {
+      name: `${process.env.BUSINESS_NAME}`,
+      address: ownerEmail,
+      // address: "matiascabralmendez@gmail.com",
+    },
+    replyTo: ownerEmail,
+    // to: email,
+    to: "fernandoleonett@gmail.com",
+    bcc: emailNotifications,
+    // bcc: "matiascabralmendez@gmail.com",
+    subject: "error",
 
-  const data = await response.json();
-  const {
-    transaction_amount,
-    external_reference: user,
-    additional_info,
-    status,
-  } = data;
+    html: `<p>ERROR: ${e}</p>`,
+  };
 
-  const { items } = additional_info;
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    port: 465,
+    host: "smtp.gmail.com",
+    secure: true,
+    auth: {
+      user: process.env.GMAIL_USER,
+      // user:"gregory.notificaciones@gmail.com",
+      // pass:"urgqvtkzovsiqivj",
+      pass: process.env.GMAIL_PASS,
+    },
+  });
 
-  return [JSON.parse(user), items, transaction_amount, status];
+  await new Promise((resolve, reject) => {
+    // verify connection configuration
+    transporter.verify(function (error, success) {
+      if (error) {
+        console.log(error);
+        reject(error);
+      } else {
+        console.log("Server is ready to take our messages");
+        resolve(success);
+      }
+    });
+  });
+
+  await new Promise((resolve, reject) => {
+    // send mail
+    transporter.sendMail(mailData, (err, info) => {
+      if (err) {
+        console.error(err);
+
+        res.status(500).json(reject(err));
+      } else {
+        console.log(info);
+
+        res.status(200).json(resolve(info));
+      }
+    });
+  });
+
+  // res.status(200).json({ status: "OK" });
 }
