@@ -21,11 +21,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const mailData = {
       from: {
         name: `${process.env.BUSINESS_NAME}`,
-        address: ownerEmail,
+        // address: ownerEmail,
+        address: "matiascabralmendez@gmail.com",
       },
       replyTo: ownerEmail,
-      to: email,
-      bcc: emailNotifications,
+      // to: email,
+      to: "fernandoleonett@gmail.com",
+      // bcc: emailNotifications,
+      bcc: "matiascabralmendez@gmail.com",
       subject: `Número de compra: ${order} `,
 
       html: emailTempate(
@@ -46,8 +49,10 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       host: "smtp.gmail.com",
       secure: true,
       auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS,
+        // user: process.env.GMAIL_USER,
+        user:"gregory.notificaciones@gmail.com",
+        pass:"urgqvtkzovsiqivj",
+        // pass: process.env.GMAIL_PASS,
       },
     });
 
@@ -88,7 +93,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function obtenerDatos(id: any) {
-  const url = `https://api.mercadopago.com/v1/payments/${id}?access_token=${process.env.ACCESS_TOKEN}`;
+  // const url = `https://api.mercadopago.com/v1/payments/${id}?access_token=${process.env.ACCESS_TOKEN}`;
+  const url = `https://api.mercadopago.com/v1/payments/${id}?access_token=TEST-5700026799056399-072520-2151ddcd598f81c5c266e166878b6e68-1165635666`;
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
