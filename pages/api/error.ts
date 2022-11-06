@@ -23,7 +23,7 @@ const mailData = {
   to: emailNotifications,
   subject: "Ocurrio un error",
 
-  html: `<p> Error \n${msg}</p>`,
+  html: `<p>${JSON.stringify(msg)}</p>`,
 };
 const transporter = nodemailer.createTransport({
   service: "gmail",
