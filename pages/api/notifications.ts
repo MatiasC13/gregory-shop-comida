@@ -25,7 +25,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       },
       replyTo: ownerEmail,
       to: email,
-      bcc: [emailNotifications],
+      bcc: emailNotifications,
       subject: `Número de compra: ${order} `,
 
       html: emailTempate(
