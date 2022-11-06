@@ -10,30 +10,33 @@ import nodemailer from "nodemailer";
 import emailTempate from "utils/emailTemplate";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-
   if (req.body.data?.id) {
     const order = req.body.data.id;
 
     try {
-
+      
       const data = await obtenerDatos(order);
       const [user, items, transaction_amount, status] = data;
       const { email } = user;
 
-      await sendMailSuccess(email, order, items, user, transaction_amount, status);
-      res.status(200).json({ id: order });
-
+      await sendMailSuccess(
+        email,
+        order,
+        items,
+        user,
+        transaction_amount,
+        status,
+        res
+      );
+      // res.status(200).json({ id: order });
     } catch (e) {
-
-      await sendMail(emailNotifications, e, `catch: ${order}`);
+      await sendMail(emailNotifications, e, `catch: ${order}`, res);
       res.status(400).json({ msg: `estñas en el catch y hay id: ${order}` });
-
-    } finally {
-
-      await sendMail(emailNotifications, order, `finally ${order}`);
-      res.end();
-
     }
+    // } finally {
+    //   await sendMail(emailNotifications, order, `finally ${order}`);
+    //   res.end();
+    // }
   } else {
     res.status(400).json({ msg: "null id notification" });
   }
@@ -43,9 +46,10 @@ async function obtenerDatos(id: any) {
   const url = `https://api.mercadopago.com/v1/payments/${id}?access_token=${process.env.ACCESS_TOKEN}`;
   // const url = `https://api.mercadopago.com/v1/payments/${id}?access_token=TEST-5700026799056399-072520-2151ddcd598f81c5c266e166878b6e68-1165635666`;
   const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
+
+  // if (!response.ok) {
+  //   throw new Error(`HTTP error! status: ${response.status}`);
+  // }
 
   const data = await response.json();
   const {
@@ -60,7 +64,15 @@ async function obtenerDatos(id: any) {
   return [JSON.parse(user), items, transaction_amount, status];
 }
 
-async function sendMailSuccess(email, order, items, user, transaction_amount, status) {
+async function sendMailSuccess(
+  email,
+  order,
+  items,
+  user,
+  transaction_amount,
+  status,
+  res
+) {
   const mailData = {
     from: {
       name: `${process.env.BUSINESS_NAME}`,
@@ -118,11 +130,11 @@ async function sendMailSuccess(email, order, items, user, transaction_amount, st
       if (err) {
         console.error(err);
 
-        // res.status(500).json(reject(err));
+        res.status(500).json(reject(err));
       } else {
         console.log(info);
 
-        // res.status(200).json(resolve(info));
+        res.status(200).json(resolve(info));
       }
     });
   });
@@ -130,12 +142,7 @@ async function sendMailSuccess(email, order, items, user, transaction_amount, st
   // res.status(200).json({ status: "OK" });
 }
 
-
-async function sendMail(
-  email,
-  data,
-  status
-) {
+async function sendMail(email: string, data: any, status: string, res) {
   const mailData = {
     from: {
       name: `${process.env.BUSINESS_NAME}`,
@@ -184,11 +191,11 @@ async function sendMail(
       if (err) {
         console.error(err);
 
-        // res.status(500).json(reject(err));
+        res.status(500).json(reject(err));
       } else {
         console.log(info);
 
-        // res.status(200).json(resolve(info));
+        res.status(200).json(resolve(info));
       }
     });
   });
