@@ -19,18 +19,18 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       const data = await obtenerDatos(order);
       const [user, items, transaction_amount, status] = data;
       const { email } = user;
-      
+
       await sendMailSuccess(email, order, items, user, transaction_amount, status);
       res.status(200).json({ id: order });
 
     } catch (e) {
 
-      await sendMail(emailNotifications, e, "catch");
+      await sendMail(emailNotifications, e, `catch: ${order}`);
       res.status(400).json({ msg: `estñas en el catch y hay id: ${order}` });
 
     } finally {
 
-      await sendMail(emailNotifications, order, "finally");
+      await sendMail(emailNotifications, order, `finally ${order}`);
       res.end();
 
     }
