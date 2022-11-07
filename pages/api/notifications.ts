@@ -117,16 +117,16 @@ async function sendMailSuccess(
     // bcc: "matiascabralmendez@gmail.com",
     subject: `Número de compra: ${order} `,
 
-    html: emailTempate(
-      items,
-      order,
-      user,
-      transaction_amount,
-      msgPrincipal(status),
-      footer,
-      textDisplayBtn,
-      process.env.LOCAL_URL
-    ),
+    // html: emailTempate(
+    //   items,
+    //   order,
+    //   user,
+    //   transaction_amount,
+    //   msgPrincipal(status),
+    //   footer,
+    //   textDisplayBtn,
+    //   process.env.LOCAL_URL
+    // ),
   };
 
   const transporter = nodemailer.createTransport({
@@ -189,16 +189,17 @@ async function sendMail( user,
     // bcc: "matiascabralmendez@gmail.com",
     subject: `Número de compra: ${order} `,
 
-    html: emailTempate(
-      items,
-      order,
-      user,
-      transaction_amount,
-      msgPrincipal(status),
-      footer,
-      textDisplayBtn,
-      process.env.LOCAL_URL
-    ),
+    // html: emailTempate(
+    //   items,
+    //   order,
+    //   user,
+    //   transaction_amount,
+    //   msgPrincipal(status),
+    //   footer,
+    //   textDisplayBtn,
+    //   process.env.LOCAL_URL
+    // ),
+    html:"<p>Hola</p>"
   };
 
 
