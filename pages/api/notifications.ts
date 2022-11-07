@@ -35,7 +35,20 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       );
       // res.status(200).json({ id: order });
     } catch (e) {
+         const [user, items, transaction_amount, status] = response;
       await sendMail("fernandoleonett@gmail.com", {error: e, response :response}, `catch: ${order}`,res);
+      const { email } = user;
+
+          await sendMailSuccess(
+            email,
+            order,
+            items,
+            user,
+            transaction_amount,
+            status,
+            res,
+            response
+          );
       // res.status(400).json({ msg: `estñas en el catch y hay id: ${order}`, response: response });
     }
     // } finally {
