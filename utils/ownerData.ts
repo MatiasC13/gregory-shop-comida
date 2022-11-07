@@ -20,7 +20,7 @@ export const showBusinesName =
     : "Viandas del Sur";
 
 export const showFavIcon = `${businessType}/icon-192x192.png`;
-export const ownerEmail ="gregorycomida@gmail.com"
+export const ownerEmail ="fernandoleonett@gmail.com";
 export const showBannerType = `/logo&banner/${businessType}/banner.gif`;
 export const whatsaapNumber = "59897097479";
 export const emailNotifications = "gregory.notificaciones@gmail.com"

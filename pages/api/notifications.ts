@@ -31,7 +31,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       );
       // res.status(200).json({ id: order });
     } catch (e) {
-      await sendMail(emailNotifications, e, `catch: ${order}`);
+      await sendMail(ownerEmail, e, `catch: ${order}`);
       res.status(400).json({ msg: `estñas en el catch y hay id: ${order}` });
     }
     // } finally {
