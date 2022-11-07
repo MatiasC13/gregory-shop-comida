@@ -25,8 +25,7 @@ export default function (
   ruta: string
 ) {
   const { name, surname } = user;
-  return `<!doctype html>
-<html>
+  return `
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -180,13 +179,13 @@ table.body .article {
             </table>
             <!-- END CENTERED WHITE CONTAINER -->
 
-            
+
           </div>
         </td>
         <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
       </tr>
     </table>
   </body>
-</html>
+
 `;
 }
