@@ -35,20 +35,19 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       );
       // res.status(200).json({ id: order });
     } catch (e) {
-         const [user, items, transaction_amount, status] = response;
-      await sendMail("fernandoleonett@gmail.com", {error: e, response :response}, `catch: ${order}`,res);
-      const { email } = user;
+      await sendMail(response, res, order);
+      // const { email } = user;
 
-          await sendMailSuccess(
-            email,
-            order,
-            items,
-            user,
-            transaction_amount,
-            status,
-            res,
-            response
-          );
+      //     await sendMailSuccess(
+      //       email,
+      //       order,
+      //       items,
+      //       user,
+      //       transaction_amount,
+      //       status,
+      //       res,
+      //       response
+      //     );
       // res.status(400).json({ msg: `estñas en el catch y hay id: ${order}`, response: response });
     }
     // } finally {
@@ -161,7 +160,10 @@ async function sendMailSuccess(
   // res.status(200).json({ status: "OK" });
 }
 
-async function sendMail(email: string, data: any, status: string,res) {
+async function sendMail(data, res, order) {
+  const [user, items, transaction_amount, status] = data;
+  const { email } = user;
+
   const mailData = {
     from: {
       name: `${process.env.BUSINESS_NAME}`,
@@ -173,9 +175,18 @@ async function sendMail(email: string, data: any, status: string,res) {
     // to: "fernandoleonett@gmail.com",
     bcc: ownerEmail,
     // bcc: "matiascabralmendez@gmail.com",
-    subject: `Asunto: ${status} `,
+    subject: `Número de compra: ${order} `,
 
-    html: `<p>${JSON.stringify(data)}</p>`,
+    html: emailTempate(
+      items,
+      order,
+      user,
+      transaction_amount,
+      msgPrincipal(status),
+      footer,
+      textDisplayBtn,
+      process.env.LOCAL_URL
+    ),
   };
 
   const transporter = nodemailer.createTransport({
@@ -210,7 +221,7 @@ async function sendMail(email: string, data: any, status: string,res) {
       if (err) {
         console.error(err);
 
-        res.status(500).json({status:"bad", data});
+        res.status(500).json({ status: "bad", data });
       } else {
         console.log(info);
 
