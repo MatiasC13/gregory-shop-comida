@@ -11,12 +11,15 @@ import emailTempate from "utils/emailTemplate";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.body.data?.id) {
+    let response: any[];
 
     const order = req.body.data.id;
     res.status(200).json({ order });
     try {
 
       const data = await obtenerDatos(order);
+
+      response = data
       const [user, items, transaction_amount, status] = data;
       const { email } = user;
 
@@ -27,12 +30,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         user,
         transaction_amount,
         status,
+        res
 
       );
       // res.status(200).json({ id: order });
     } catch (e) {
-      await sendMail("fernandoleonett@gmail.com", e, `catch: ${order}`);
-      res.status(400).json({ msg: `estñas en el catch y hay id: ${order}` });
+      await sendMail("fernandoleonett@gmail.com", {error: e, response :response}, `catch: ${order}`,res);
+      // res.status(400).json({ msg: `estñas en el catch y hay id: ${order}`, response: response });
     }
     // } finally {
     //   await sendMail(emailNotifications, order, `finally ${order}`);
@@ -48,9 +52,9 @@ async function obtenerDatos(id: any) {
   // const url = `https://api.mercadopago.com/v1/payments/${id}?access_token=TEST-5700026799056399-072520-2151ddcd598f81c5c266e166878b6e68-1165635666`;
   const response = await fetch(url);
 
-  // if (!response.ok) {
-  //   throw new Error(`HTTP error! status: ${response.status}`);
-  // }
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
 
   const data = await response.json();
   const {
@@ -72,6 +76,7 @@ async function sendMailSuccess(
   user,
   transaction_amount,
   status,
+  res
 
 ) {
   const mailData = {
@@ -131,11 +136,11 @@ async function sendMailSuccess(
       if (err) {
         console.error(err);
 
-        // res.status(500).json(reject(err));
+        res.status(500).json(reject(err));
       } else {
         console.log(info);
 
-        // res.status(200).json(resolve(info));
+        res.status(200).json(resolve(info));
       }
     });
   });
@@ -143,7 +148,7 @@ async function sendMailSuccess(
   // res.status(200).json({ status: "OK" });
 }
 
-async function sendMail(email: string, data: any, status: string) {
+async function sendMail(email: string, data: any, status: string,res) {
   const mailData = {
     from: {
       name: `${process.env.BUSINESS_NAME}`,
@@ -192,11 +197,11 @@ async function sendMail(email: string, data: any, status: string) {
       if (err) {
         console.error(err);
 
-        // res.status(500).json(reject(err));
+        res.status(500).json({status:"bad", data});
       } else {
         console.log(info);
 
-        // res.status(200).json(resolve(info));
+        res.status(200).json({ status: "good", data });
       }
     });
   });
