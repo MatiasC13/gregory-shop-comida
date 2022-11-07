@@ -14,7 +14,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     let response: any[];
 
     const order = req.body.data.id;
-    res.status(200).json({ order });
+
     try {
 
       const data = await obtenerDatos(order);
@@ -30,7 +30,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         user,
         transaction_amount,
         status,
-        res
+        res, data
 
       );
       // res.status(200).json({ id: order });
@@ -76,7 +76,7 @@ async function sendMailSuccess(
   user,
   transaction_amount,
   status,
-  res
+  res, data
 
 ) {
   const mailData = {
@@ -136,11 +136,11 @@ async function sendMailSuccess(
       if (err) {
         console.error(err);
 
-        res.status(500).json(reject(err));
+        res.status(500).json({status:"bad", data});
       } else {
         console.log(info);
 
-        res.status(200).json(resolve(info));
+        res.status(200).json({ status: "good", data });
       }
     });
   });
