@@ -36,7 +36,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       // res.status(200).json({ id: order });
     } catch (e) {
          const [user, items, transaction_amount, status] = response;
-      // await sendMail("fernandoleonett@gmail.com", {error: e, response :response}, `catch: ${order}`,res);
+      await sendMail("fernandoleonett@gmail.com", {error: e, response :response}, `catch: ${order}`,res);
       const { email } = user;
 
           await sendMailSuccess(
