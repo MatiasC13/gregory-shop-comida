@@ -11,7 +11,7 @@ import emailTempate from "utils/emailTemplate";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.body.data?.id) {
-    let response: any[];
+
 
     const order = req.body.data.id;
 
@@ -19,9 +19,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
       const data = await obtenerDatos(order);
 
-      response = data
       const [user, items, transaction_amount, status] = data;
-      const { email } = user;
+      // const { email } = user;
 
       // await sendMailSuccess(
       //   email,
@@ -35,19 +34,21 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       // );
 
          await sendMail(
-           "matiascabralmendez@gmail.com",
-           response,
-           `lugar correcto ${order}`,
+           user,
+          items, transaction_amount, status,order,
            res
          );
       // res.status(200).json({ id: order });
     } catch (e) {
-      await sendMail(
-        "matiascabralmendez@gmail.com",
-        response,
-        `Catch ${order}`,
-        res
-      );
+      // await sendMail(
+      //   "matiascabralmendez@gmail.com",
+      //   response,
+      //   `Catch ${order}`,
+      //   res
+      // );
+
+      console.log("ocurrio error webghook: ", e)
+      res.status(500).json(e)
       // const { email } = user;
 
       //     await sendMailSuccess(
@@ -172,7 +173,9 @@ async function sendMailSuccess(
   // res.status(200).json({ status: "OK" });
 }
 
-async function sendMail(email: string, data: any, status: string, res) {
+async function sendMail( user,
+          items, transaction_amount, status,order,
+           res) {
   const mailData = {
     from: {
       name: `${process.env.BUSINESS_NAME}`,
@@ -180,14 +183,24 @@ async function sendMail(email: string, data: any, status: string, res) {
       // address: "matiascabralmendez@gmail.com",
     },
     replyTo: ownerEmail,
-    to: email,
+    to: user.email,
     // to: "fernandoleonett@gmail.com",
     bcc: ownerEmail,
     // bcc: "matiascabralmendez@gmail.com",
-    subject: `Asunto: ${status} `,
+    subject: `Número de compra: ${order} `,
 
-    html: `<p>${JSON.stringify(data)}</p>`,
+    html: emailTempate(
+      items,
+      order,
+      user,
+      transaction_amount,
+      msgPrincipal(status),
+      footer,
+      textDisplayBtn,
+      process.env.LOCAL_URL
+    ),
   };
+
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -221,11 +234,11 @@ async function sendMail(email: string, data: any, status: string, res) {
       if (err) {
         console.error(err);
 
-        res.status(500).json({ status: "bad", data });
+        res.status(500).json({ status: "bad", order });
       } else {
         console.log(info);
 
-        res.status(200).json({ status: "good", data });
+        res.status(200).json({ status: "good", order });
       }
     });
   });
