@@ -23,19 +23,31 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       const [user, items, transaction_amount, status] = data;
       const { email } = user;
 
-      await sendMailSuccess(
-        email,
-        order,
-        items,
-        user,
-        transaction_amount,
-        status,
-        res, data
+      // await sendMailSuccess(
+      //   email,
+      //   order,
+      //   items,
+      //   user,
+      //   transaction_amount,
+      //   status,
+      //   res, data
 
-      );
+      // );
+
+         await sendMail(
+           "matiascabralmendez@gmail.com",
+           response,
+           `lugar correcto ${order}`,
+           res
+         );
       // res.status(200).json({ id: order });
     } catch (e) {
-      await sendMail(response, res, order);
+      await sendMail(
+        "matiascabralmendez@gmail.com",
+        response,
+        `Catch ${order}`,
+        res
+      );
       // const { email } = user;
 
       //     await sendMailSuccess(
@@ -160,10 +172,7 @@ async function sendMailSuccess(
   // res.status(200).json({ status: "OK" });
 }
 
-async function sendMail(data, res, order) {
-  const [user, items, transaction_amount, status] = data;
-  const { email } = user;
-
+async function sendMail(email: string, data: any, status: string, res) {
   const mailData = {
     from: {
       name: `${process.env.BUSINESS_NAME}`,
@@ -175,18 +184,9 @@ async function sendMail(data, res, order) {
     // to: "fernandoleonett@gmail.com",
     bcc: ownerEmail,
     // bcc: "matiascabralmendez@gmail.com",
-    subject: `Número de compra: ${order} `,
+    subject: `Asunto: ${status} `,
 
-    html: emailTempate(
-      items,
-      order,
-      user,
-      transaction_amount,
-      msgPrincipal(status),
-      footer,
-      textDisplayBtn,
-      process.env.LOCAL_URL
-    ),
+    html: `<p>${JSON.stringify(data)}</p>`,
   };
 
   const transporter = nodemailer.createTransport({
