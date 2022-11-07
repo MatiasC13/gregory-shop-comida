@@ -11,10 +11,11 @@ import emailTempate from "utils/emailTemplate";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.body.data?.id) {
-    const order = req.body.data.id;
 
+    const order = req.body.data.id;
+    res.status(200).json({ order });
     try {
-      
+
       const data = await obtenerDatos(order);
       const [user, items, transaction_amount, status] = data;
       const { email } = user;
@@ -26,11 +27,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         user,
         transaction_amount,
         status,
-        res
+
       );
       // res.status(200).json({ id: order });
     } catch (e) {
-      await sendMail(emailNotifications, e, `catch: ${order}`, res);
+      await sendMail(emailNotifications, e, `catch: ${order}`);
       res.status(400).json({ msg: `estñas en el catch y hay id: ${order}` });
     }
     // } finally {
@@ -71,7 +72,7 @@ async function sendMailSuccess(
   user,
   transaction_amount,
   status,
-  res
+
 ) {
   const mailData = {
     from: {
@@ -130,11 +131,11 @@ async function sendMailSuccess(
       if (err) {
         console.error(err);
 
-        res.status(500).json(reject(err));
+        // res.status(500).json(reject(err));
       } else {
         console.log(info);
 
-        res.status(200).json(resolve(info));
+        // res.status(200).json(resolve(info));
       }
     });
   });
@@ -142,7 +143,7 @@ async function sendMailSuccess(
   // res.status(200).json({ status: "OK" });
 }
 
-async function sendMail(email: string, data: any, status: string, res) {
+async function sendMail(email: string, data: any, status: string) {
   const mailData = {
     from: {
       name: `${process.env.BUSINESS_NAME}`,
@@ -191,11 +192,11 @@ async function sendMail(email: string, data: any, status: string, res) {
       if (err) {
         console.error(err);
 
-        res.status(500).json(reject(err));
+        // res.status(500).json(reject(err));
       } else {
         console.log(info);
 
-        res.status(200).json(resolve(info));
+        // res.status(200).json(resolve(info));
       }
     });
   });
