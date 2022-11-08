@@ -34,7 +34,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
 async function obtenerDatos(id: any) {
   const url = `https://api.mercadopago.com/v1/payments/${id}?access_token=${process.env.ACCESS_TOKEN}`;
-  // const url = `https://api.mercadopago.com/v1/payments/${id}?access_token=TEST-5700026799056399-072520-2151ddcd598f81c5c266e166878b6e68-1165635666`;
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -62,13 +61,10 @@ async function sendMail(data, order, res) {
     from: {
       name: `${process.env.BUSINESS_NAME}`,
       address: ownerEmail,
-      // address: "matiascabralmendez@gmail.com",
     },
     replyTo: ownerEmail,
     to: user.email,
-    // to: "fernandoleonett@gmail.com",
     bcc: ownerEmail,
-    // bcc: "matiascabralmendez@gmail.com",
     subject: `Número de compra: ${order} `,
 
     html: emailTempate(
@@ -90,8 +86,6 @@ async function sendMail(data, order, res) {
     secure: true,
     auth: {
       user: process.env.GMAIL_USER,
-      // user:"gregory.notificaciones@gmail.com",
-      // pass:"urgqvtkzovsiqivj",
       pass: process.env.GMAIL_PASS,
     },
   });
