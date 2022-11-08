@@ -1,6 +1,7 @@
 import MercadoPagoItems from "interfaces/MercadoPagoItems";
 import User from "interfaces/User";
 
+
 const rowItem = (cart: MercadoPagoItems[]) =>
   cart
     .map(
@@ -11,7 +12,7 @@ const rowItem = (cart: MercadoPagoItems[]) =>
   <td>$ ${item.unit_price * item.quantity}</td>
   </tr>`
     )
-    // .join("")
+    .join("")
     // .replaceAll(",", "");
 
 export default function (
@@ -25,7 +26,8 @@ export default function (
   ruta: string
 ) {
   const { name, surname } = user;
-  return `
+  return `<!doctype html>
+<html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -186,6 +188,6 @@ table.body .article {
       </tr>
     </table>
   </body>
-
+</html>
 `;
 }
