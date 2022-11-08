@@ -1,7 +1,6 @@
 import MercadoPagoItems from "interfaces/MercadoPagoItems";
 import User from "interfaces/User";
 
-
 const rowItem = (cart: MercadoPagoItems[]) =>
   cart
     .map(
@@ -12,8 +11,8 @@ const rowItem = (cart: MercadoPagoItems[]) =>
   <td>$ ${item.unit_price * item.quantity}</td>
   </tr>`
     )
-    .join("")
-    // .replaceAll(",", "");
+    .join("");
+// .replaceAll(",", "");
 
 export default function (
   cart: MercadoPagoItems[],
@@ -47,9 +46,13 @@ table.body ol,
 table.body td,
 table.body span,
 table.body a {
-    font-size: 16px !important;
-    text-align: left;
+    font-size: 1rem !important;
+    text-align: justify;
   }
+
+table.body td,{
+  font-size: 0.5rem !important;
+}
 
   table.body .wrapper,
 table.body .article {
@@ -150,8 +153,8 @@ table.body .article {
                                 ${orderNumber}</p>
                               ${rowItem(cart)}
                             <tr>
-                              <td style="font-size: 16px; font-weight: bold;">Total: </td>
-                              <td style="font-size: 16px; font-weight: bold;">$ ${total}</td>
+                              <td style="font-size: 16px; font-weight: bold;">Total:</td>
+                              <td style="font-size: 1rem; font-weight: bold;">$${total}</td>
                              </tr>
                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">${msgMain}</p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%;" width="100%">
@@ -161,7 +164,7 @@ table.body .article {
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
                                   <tbody>
                                     <tr>
-                                      <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; border-radius: 5px; text-align: center; background-color: #3498db;" valign="top" align="center" bgcolor="#3498db"> <a href=${ruta}  target="_blank" style="border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-decoration: none; background-color: #3498db; border-color: #3498db; color: #ffffff;">${displayLink}</a> </td>
+                                      <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; border-radius: 5px; text-align: center; background-color: #3498db;" valign="top" align="center" bgcolor="#3498db"> <a href=${ruta}  target="_blank" style="border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-decoration: none; background-color: #3498db; border-color: #3498db; color: #ffffff; text-align: center;">${displayLink}</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>
