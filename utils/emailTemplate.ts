@@ -1,6 +1,7 @@
 import MercadoPagoItems from "interfaces/MercadoPagoItems";
 import User from "interfaces/User";
 
+
 const rowItem = (cart: MercadoPagoItems[]) =>
   cart
     .map(
@@ -12,7 +13,7 @@ const rowItem = (cart: MercadoPagoItems[]) =>
   </tr>`
     )
     .join("")
-    .replaceAll(",", "");
+    // .replaceAll(",", "");
 
 export default function (
   cart: MercadoPagoItems[],
@@ -180,7 +181,7 @@ table.body .article {
             </table>
             <!-- END CENTERED WHITE CONTAINER -->
 
-            
+
           </div>
         </td>
         <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
