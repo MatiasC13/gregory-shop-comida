@@ -11,8 +11,8 @@ const rowItem = (cart: MercadoPagoItems[]) =>
   <td>$ ${item.unit_price * item.quantity}</td>
   </tr>`
     )
-    .join("")
-    .replaceAll(",", "");
+    // .join("")
+    // .replaceAll(",", "");
 
 export default function (
   cart: MercadoPagoItems[],
