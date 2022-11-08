@@ -20,7 +20,7 @@ export const showBusinesName =
     : "Viandas del Sur";
 
 export const showFavIcon = `${businessType}/icon-192x192.png`;
-export const ownerEmail ="gregorycomida@gmail.com"
+export const ownerEmail ="gregorycomida@gmail.com";
 export const showBannerType = `/logo&banner/${businessType}/banner.gif`;
 export const whatsaapNumber = "59897097479";
 export const emailNotifications = "gregory.notificaciones@gmail.com"
@@ -28,8 +28,8 @@ export const msgOWnerContact = "Hola tengo una consulta sobre tu tienda";
 export const instagramAccount = "";
 export const facebookAccount = "";
 export const telefono = "24180116";
-export const msgPrincipal = (status: string): string =>
-  status !== "approved"
+export const msgPrincipal = (statusPurchase: string): string =>
+  statusPurchase !== "approved"
     ? "Tu compra esta casi lista, cualquier duda estamos a las ordenes 😊"
     : "Felicidades! tu compra ha sido confirmada 😀";
 

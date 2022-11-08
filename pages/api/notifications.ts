@@ -11,9 +11,12 @@ import emailTempate from "utils/emailTemplate";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.body.data?.id) {
+
+
     const order = req.body.data.id;
 
     try {
+
       const data = await obtenerDatos(order);
 
       const [user, items, transaction_amount, status] = data;
@@ -30,7 +33,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
       // );
 
-      await sendMail(user, items, transaction_amount, status, order, res);
+         await sendMail(
+           user,
+          items, transaction_amount, status,order,
+           res
+         );
       // res.status(200).json({ id: order });
     } catch (e) {
       // await sendMail(
@@ -40,8 +47,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       //   res
       // );
 
-      console.log("ocurrio error webghook: ", e);
-      res.status(500).json(e);
+      console.log("ocurrio error webghook: ", e)
+      res.status(500).json(e)
       // const { email } = user;
 
       //     await sendMailSuccess(
@@ -94,8 +101,8 @@ async function sendMailSuccess(
   user,
   transaction_amount,
   status,
-  res,
-  data
+  res, data
+
 ) {
   const mailData = {
     from: {
@@ -154,7 +161,7 @@ async function sendMailSuccess(
       if (err) {
         console.error(err);
 
-        res.status(500).json({ status: "bad", data });
+        res.status(500).json({status:"bad", data});
       } else {
         console.log(info);
 
@@ -166,7 +173,9 @@ async function sendMailSuccess(
   // res.status(200).json({ status: "OK" });
 }
 
-async function sendMail(user, items, transaction_amount, status, order, res) {
+async function sendMail( user,
+          items, transaction_amount, status,order,
+           res) {
   const mailData = {
     from: {
       name: `${process.env.BUSINESS_NAME}`,
@@ -190,8 +199,9 @@ async function sendMail(user, items, transaction_amount, status, order, res) {
     //   textDisplayBtn,
     //   process.env.LOCAL_URL
     // ),
-    html: "<p>Hola</p>",
+    html:"<p>Hola</p>"
   };
+
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
