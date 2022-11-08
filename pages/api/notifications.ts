@@ -16,9 +16,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     try {
       const data = await obtenerDatos(order);
 
-      const [user, items, transaction_amount, status] = data;
 
-      await sendMail(user, items, transaction_amount, status, order, res);
+      await sendMail(data, order, res);
       // res.status(200).json({ id: order });
     } catch (e) {
 
@@ -56,7 +55,9 @@ async function obtenerDatos(id: any) {
 }
 
 
-async function sendMail(user, items, transaction_amount, status, order, res) {
+async function sendMail(data, order, res) {
+        const [user, items, transaction_amount, status] = data;
+
   const mailData = {
     from: {
       name: `${process.env.BUSINESS_NAME}`,
@@ -114,11 +115,11 @@ async function sendMail(user, items, transaction_amount, status, order, res) {
       if (err) {
         console.error(err);
 
-        res.status(500).json({ status: "bad", order });
+        res.status(500).json({ status: "bad", data, ownerEmail });
       } else {
         console.log(info);
 
-        res.status(200).json({ status: "good", order });
+        res.status(200).json({ status: "good", data, ownerEmail });
       }
     });
   });
