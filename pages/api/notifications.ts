@@ -60,9 +60,11 @@ async function sendMail(data, order, res) {
   const mailData = {
     from: {
       name: `${process.env.BUSINESS_NAME}`,
-      address: ownerEmail,
+      // address: ownerEmail,
+      address: "contacto@tiendasgregory.com"
     },
-    replyTo: ownerEmail,
+    // replyTo: ownerEmail,
+    replyTo: "contacto@tiendasgregory.com",
     to: user.email,
     bcc: ownerEmail,
     subject: `Número de compra: ${order} `,
@@ -80,10 +82,13 @@ async function sendMail(data, order, res) {
   };
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
-    port: 465,
-    host: "smtp.gmail.com",
-    secure: true,
+    host: process.env.HOST,
+    // service: "gmail",
+    // port: 465,
+    port: 587,
+    // host: "smtp.gmail.com",
+    // secure: true,
+    secure: false,
     auth: {
       user: process.env.GMAIL_USER,
       pass: process.env.GMAIL_PASS,
