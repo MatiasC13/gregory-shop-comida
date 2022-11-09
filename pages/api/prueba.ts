@@ -14,7 +14,9 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
        url: process.env.LOCAL_URL,
        accesstoken: process.env.ACCESS_TOKEN,
        acceskeyid: process.env.ACCES_KEY_ID,
-       secretaccesskey: process.env.SECRET_ACCESS_KEY
+       secretaccesskey: process.env.SECRET_ACCESS_KEY,
+       gmailpass: process.env.GMAIL_PASS,
+       gmailuser: process.env.GMAIL_USER,
      });
   } catch (error) {
     console.log("error api: ", error);
