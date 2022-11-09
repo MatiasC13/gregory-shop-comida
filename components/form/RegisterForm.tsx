@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useShoping } from "context/context";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getInitPoint } from "product/mercadopago";
 import { validateEmail } from "utils/helper";
 
@@ -23,10 +23,8 @@ const RegisterForm = () => {
   const [disabled, setDisabled]= useState(false);
   const router = useRouter();
   const toast = useToast();
-
   const initialRef = useRef(null);
   const finalRef = useRef(null);
-
   const { email, name, surname } = user;
 
   const onChangeInput = (e) => {
@@ -54,9 +52,10 @@ const RegisterForm = () => {
           status = "success";
         })
         .catch((error) => {
-          title = "Ocurrió un error inesperado.";
+          title = "Ocurrió un error inesperado. Vuelve a intentarlo.";
           status = "error";
           console.log("Hubo un error: ", error)
+          setDisabled(false)
         })
         .finally(() =>{
           toast({
@@ -70,6 +69,13 @@ const RegisterForm = () => {
         });
     }
   };
+
+  // useEffect(() => {
+  //   return () => {
+  //     setDisabled(false);
+  //   };
+  // }, []);
+
   //check
   // useEffect(() => {
   //   setUser({} as User);
