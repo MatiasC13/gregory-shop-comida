@@ -84,11 +84,11 @@ async function sendMail(data, order, res) {
   const transporter = nodemailer.createTransport({
     host: process.env.HOST,
     // service: "gmail",
-    // port: 465,
-    port: 587,
+    port: 465,
+    // port: 587,
     // host: "smtp.gmail.com",
-    // secure: true,
-    secure: false,
+    secure: true,
+    // secure: false,
     auth: {
       user: process.env.GMAIL_USER,
       pass: process.env.GMAIL_PASS,
