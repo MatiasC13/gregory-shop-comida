@@ -92,9 +92,9 @@ async function sendMail(data, order, res) {
     host: process.env.HOST,
     port: 25,
     secure: false,
-    tls: {
-      rejectUnauthorized: false,
-    },
+    // tls: {
+    //   rejectUnauthorized: false,
+    // },
     auth: {
       user: process.env.GMAIL_USER,
       pass: process.env.GMAIL_PASS,
