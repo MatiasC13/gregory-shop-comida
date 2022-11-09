@@ -16,17 +16,12 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     try {
       const data = await obtenerDatos(order);
 
-
       await sendMail(data, order, res);
       // res.status(200).json({ id: order });
     } catch (e) {
-
-
       console.log("ocurrio error webghook: ", e);
       res.status(500).json(e);
-
     }
-
   } else {
     res.status(400).json({ msg: "null id notification" });
   }
@@ -53,15 +48,14 @@ async function obtenerDatos(id: any) {
   return [JSON.parse(user), items, transaction_amount, status];
 }
 
-
 async function sendMail(data, order, res) {
-        const [user, items, transaction_amount, status] = data;
+  const [user, items, transaction_amount, status] = data;
 
   const mailData = {
     from: {
       name: `${process.env.BUSINESS_NAME}`,
       // address: ownerEmail,
-      address: "contacto@tiendasgregory.com"
+      address: "contacto@tiendasgregory.com",
     },
     // replyTo: ownerEmail,
     replyTo: "contacto@tiendasgregory.com",
@@ -82,19 +76,12 @@ async function sendMail(data, order, res) {
   };
 
   const transporter = nodemailer.createTransport({
-            // auth: {
-            //     user: 'username@mysmtpserver.com',
-            //     pass: 'mypasswd'
-            // },
-            // tls: {rejectUnauthorized: false},
-            // debug:true,
-        host: process.env.HOST,
-    // // service: "gmail",
-    // port: 465,
-    port: 587,
-    // host: "smtp.gmail.com",
-    // secure: true,
+    host: process.env.HOST,
+    port: 25,
     secure: false,
+    tls: {
+      rejectUnauthorized: false,
+    },
     auth: {
       user: process.env.GMAIL_USER,
       pass: process.env.GMAIL_PASS,
@@ -121,7 +108,7 @@ async function sendMail(data, order, res) {
         console.error(err);
 
         // res.status(500).json({ status: "bad", data, ownerEmail });
-        res.status(500).json({ status: "bad", data});
+        res.status(500).json({ status: "bad", data });
       } else {
         console.log(info);
 
