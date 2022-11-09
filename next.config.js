@@ -28,12 +28,18 @@ module.exports = {
   env: {
     ACCESS_TOKEN: process.env.ACCESS_TOKEN,
 
+    ACCES_KEY_ID: process.env.ACCES_KEY_ID,
+
+    SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY,
+
     GMAIL_USER: process.env.GMAIL_USER,
 
     GMAIL_PASS: process.env.GMAIL_PASS,
 
     // LOCAL_URL: "https://5706-185-198-50-34.eu.ngrok.io/",
     LOCAL_URL: process.env.LOCAL_URL,
+
+    HOST: process.env.HOST,
 
     BUSINESS_NAME: "Viandas del Sur",
   },
