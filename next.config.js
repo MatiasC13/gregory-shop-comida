@@ -28,9 +28,9 @@ module.exports = {
   env: {
     ACCESS_TOKEN: process.env.ACCESS_TOKEN,
 
-    ACCES_KEY_ID: process.env.ACCES_KEY_ID,
+    // ACCES_KEY_ID: process.env.ACCES_KEY_ID,
 
-    SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY,
+    // SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY,
 
     GMAIL_PASS: process.env.GMAIL_PASS,
 
