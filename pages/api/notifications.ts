@@ -8,6 +8,7 @@ import {
 import { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from "nodemailer";
 import emailTempate from "utils/emailTemplate";
+import AWS from "aws-sdk";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.body.data?.id) {
@@ -75,18 +76,30 @@ async function sendMail(data, order, res) {
     ),
   };
 
-  const transporter = nodemailer.createTransport({
-    host: process.env.HOST,
-    port: 25,
-    secure: false,
-    tls: {
-      rejectUnauthorized: false,
-    },
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASS,
-    },
-  });
+AWS.config.update({
+  accessKeyId: process.env.ACCES_KEY_ID,
+  secretAccessKey: process.env.SECRET_ACCESS_KEY,
+  region: "sa-east-1",
+});
+
+const transporter = nodemailer.createTransport({
+SES: new AWS.SES({
+  apiVersion: '2010-12-01'
+})
+});
+
+  // const transporter = nodemailer.createTransport({
+  //   host: process.env.HOST,
+  //   port: 25,
+  //   secure: false,
+  //   tls: {
+  //     rejectUnauthorized: false,
+  //   },
+  //   auth: {
+  //     user: process.env.GMAIL_USER,
+  //     pass: process.env.GMAIL_PASS,
+  //   },
+  // });
 
   await new Promise((resolve, reject) => {
     // verify connection configuration
