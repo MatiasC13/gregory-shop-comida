@@ -66,7 +66,7 @@ async function sendMail(data, order, res) {
     // replyTo: ownerEmail,
     replyTo: "contacto@tiendasgregory.com",
     to: user.email,
-    bcc: ownerEmail,
+    // bcc: ownerEmail,
     subject: `Número de compra: ${order} `,
 
     html: emailTempate(
@@ -90,11 +90,11 @@ async function sendMail(data, order, res) {
             // debug:true,
         host: process.env.HOST,
     // // service: "gmail",
-    port: 465,
-    // port: 587,
+    // port: 465,
+    port: 587,
     // host: "smtp.gmail.com",
-    secure: true,
-    // secure: false,
+    // secure: true,
+    secure: false,
     auth: {
       user: process.env.GMAIL_USER,
       pass: process.env.GMAIL_PASS,
@@ -120,11 +120,13 @@ async function sendMail(data, order, res) {
       if (err) {
         console.error(err);
 
-        res.status(500).json({ status: "bad", data, ownerEmail });
+        // res.status(500).json({ status: "bad", data, ownerEmail });
+        res.status(500).json({ status: "bad", data});
       } else {
         console.log(info);
 
-        res.status(200).json({ status: "good", data, ownerEmail });
+        res.status(200).json({ status: "good", data });
+        // res.status(200).json({ status: "good", data, ownerEmail });
       }
     });
   });
