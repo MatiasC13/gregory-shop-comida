@@ -89,18 +89,15 @@ async function sendMail(data, order, res) {
 // });
 
   const transporter = nodemailer.createTransport({
-    // host: process.env.HOST,
-    host: "smtp.ionos.com",
+    host: process.env.HOST,
     port: 25,
     secure: false,
     tls: {
       rejectUnauthorized: false,
     },
     auth: {
-      user: "contacto@tiendasgregory.com",
-      pass: "Pruebita123",
-      // user: process.env.GMAIL_USER,
-      // pass: process.env.GMAIL_PASS,
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS,
     },
   });
 
