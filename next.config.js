@@ -38,9 +38,9 @@ module.exports = {
     
     BUSINESS_NAME: "Viandas del Sur",
     
-    // ACCES_KEY_ID: process.env.ACCES_KEY_ID,
+    ACCES_KEY_ID: process.env.ACCES_KEY_ID,
 
-    // SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY,
+    SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY,
 
     // LOCAL_URL: "https://5706-185-198-50-34.eu.ngrok.io/",
   },
